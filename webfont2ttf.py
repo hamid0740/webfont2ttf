@@ -3,15 +3,15 @@ from fontTools.ttLib import TTFont, woff2
 
 # WOFF to TTF Conversion
 def convert_woff_ttf(infilename, outfilename):
-  infile = open(infilename, "rb")
-  outfile = open(outfilename, "wb")
-  woff2.decompress(infile, outfile)
-
-# WOFF2 to TTF Conversion
-def convert_woff2_ttf(infilename, outfilename):
   infile = TTFont(infilename)
   infile.falvor = None
   infile.save(outfilename)
+
+# WOFF2 to TTF Conversion
+def convert_woff2_ttf(infilename, outfilename):
+  infile = open(infilename, "rb")
+  outfile = open(outfilename, "wb")
+  woff2.decompress(infile, outfile)
 
 # Main function
 def main():
