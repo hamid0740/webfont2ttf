@@ -1,6 +1,6 @@
 # Modules
 import streamlit as st
-import os
+import os, shutil
 from fontTools.ttLib import woff2
 import struct
 import zlib
@@ -30,18 +30,18 @@ def main():
       if format == "woff":
         try:
           convert_woff_ttf(filename, f"./temp/{fn}/{fn}.ttf")
+          st.download_button(label="Download converted TTF", data=open(f"./temp/{fn}/{fn}.ttf", "rb").read(), file_name=f"{name}.ttf", mime="font/ttf")
           st.write("✅️ Converted WOFF to TTF successfully.")
-          st.download_button(label="Download converted TTF", data=open(f"./temp/{fn}/{fn}.ttf", "r").read(), file_name=f"{name}.ttf", mime="font/ttf")
         except:
           st.write("❌️ Couldn't convert WOFF to TTF.")
       elif format == "woff2":
         try:
           convert_woff2_ttf(filename, f"./temp/{fn}/{fn}.ttf")
+          st.download_button(label="Download converted TTF", data=open(f"./temp/{fn}/{fn}.ttf", "rb").read(), file_name=f"{name}.ttf", mime="font/ttf")
           st.write("✅️ Converted WOFF2 to TTF successfully.")
-          st.download_button(label="Download converted TTF", data=open(f"./temp/{fn}/{fn}.ttf", "r").read(), file_name=f"{name}.ttf", mime="font/ttf")
         except:
           st.write("❌️ Couldn't convert WOFF2 to TTF.")
-      os.remove(f"./temp/{fn}")
+      shutil.rmtree(f"./temp/{fn}")
     else:
       st.write("⚠️ Please upload a webfont only!")
 
